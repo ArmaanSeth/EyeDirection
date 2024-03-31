@@ -29,7 +29,7 @@ def pos(center, upoint, dpoint):
         return 'UP'
     elif r<10:
         return 'FRONT'
-    elif r<13: 
+    elif r<14: 
         return 'DOWN'
     else:
         return '==================================================================BLINK'
@@ -63,7 +63,7 @@ while(True):
         cv2. circle(img, meshPoints[R_H_UP][0], 2, (255, 255, 255), -1, cv2 .LINE_AA)
         cv2.circle(img, meshPoints[R_H_DOWN][0], 2, (255, 255, 255), -1, cv2.LINE_AA)
         res=pos(center_right, meshPoints[R_H_UP], meshPoints[R_H_DOWN])
-        if res=='UP':
+        if res in ['UP', 'FRONT']:
             flag=False
             k=0
         
@@ -75,9 +75,10 @@ while(True):
             else: 
                 k+=1
         else:
+            print(res)
             flag=False
             k=0
-        print(res)
+        # print(res)
         # for id,lm in enumerate(facelms.landmark):
         #     print(lm)
         #     h,w,c=img.shape
