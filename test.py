@@ -52,7 +52,6 @@ class Process:
 
             r = (self.pos(meshPoints[R_R], meshPoints[R_L], meshPoints[R_UP], meshPoints[R_DOWN],)
                     + self.pos(meshPoints[L_R], meshPoints[L_L], meshPoints[L_UP], meshPoints[L_DOWN],)) / 2
-            print(r)
             if r >= self.c:
                 self.flag = False
                 self.k = 0
