@@ -15,7 +15,7 @@ if (navigator.mediaDevices.getUserMedia) {
       video.addEventListener("play", function () {
         setInterval(() => {
           sendFrame();
-        }, 100);
+        }, 60);
       });
       function sendFrame() {
         //used canvas to send blob object

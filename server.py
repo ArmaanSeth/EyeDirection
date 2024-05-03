@@ -2,31 +2,17 @@ import asyncio
 import websockets
 import cv2
 import numpy as np
-from test import processOutput
-counter=5
-flag=False
-k=0
-b=-1
-c=-1
-f1=0
-f2=False
-ls=[]
+from test import Process
 async def handle_client(websocket, path):
     print("Someone connected")
+    process=Process()
     try:
         while True:
             data = await websocket.recv()
             nparr = np.frombuffer(data, np.uint8)
             img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-            # cv2.imshow('Received Video', img_np)
-            processOutput(img_np);
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-              break
-            # print(f"Received data: {data}")
-            # Process the received data here
-            # Send a response back to the client
-            # response = "Server received your message"
-            # await websocket.send(response)
+            response=process.ProcessImage(img_np)
+            await websocket.send(response)
     except websockets.exceptions.ConnectionClosed:
         print("Someone disconnected")
 
