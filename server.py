@@ -12,7 +12,9 @@ async def handle_client(websocket, path):
             nparr = np.frombuffer(data, np.uint8)
             img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
             response=process.ProcessImage(img_np)
-            await websocket.send(response)
+            if response=="1":
+              print("=============================Cheater=============================")
+              await websocket.send(response)
     except websockets.exceptions.ConnectionClosed:
         print("Someone disconnected")
 

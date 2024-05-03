@@ -19,7 +19,9 @@ RIGHT_EYE = [33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 
 
 class Process:
     def __init__(self) -> None:
-        self.b = 0.25
+        self.b = 0.15
+        self.c = 0.27
+        self.counter = 4
         self.mpDraw = mp.solutions.drawing_utils
         self.mpFaceMesh = mp.solutions.face_mesh
         self.faceMesh = self.mpFaceMesh.FaceMesh(max_num_faces=1, refine_landmarks=True)
@@ -39,6 +41,7 @@ class Process:
 
     def ProcessImage(self,vid):
         res="0"
+        # print(self.k)
         img = cv2.flip(vid, 1)
         imgRGB = cv2.cvtColor(vid, cv2.COLOR_BGR2RGB)
         img_h, img_w = img.shape[:2]
@@ -49,6 +52,33 @@ class Process:
 
             r = (self.pos(meshPoints[R_R], meshPoints[R_L], meshPoints[R_UP], meshPoints[R_DOWN],)
                     + self.pos(meshPoints[L_R], meshPoints[L_L], meshPoints[L_UP], meshPoints[L_DOWN],)) / 2
-            if r <self.b:
-                res="1"
+            print(r)
+            if r >= self.c:
+                self.flag = False
+                self.k = 0
+                pass
+            elif r >= self.b:
+                # self.k += 1
+                if self.flag:
+                    if self.k == self.counter:
+                        self.flag = False
+                        res="1"
+                        self.k=0
+                        self.flag=False
+                    else:
+                        pass
+                        self.k += 1
+                else:
+                    self.flag = True
+                    self.k = 1
+            else:
+                self.k = 0
+                self.flag = False
+                pass
+        else:
+            self.k = 0
+            self.flag = False
+            pass
+        if res=="1": 
+            print("===============================================Cheater===============================================")
         return res
