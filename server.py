@@ -3,6 +3,7 @@ import websockets
 import cv2
 import numpy as np
 from test import Process
+
 async def handle_client(websocket, path):
     print("Someone connected")
     process=Process()
@@ -18,7 +19,8 @@ async def handle_client(websocket, path):
     except websockets.exceptions.ConnectionClosed:
         print("Someone disconnected")
 
-start_server = websockets.serve(handle_client, 'localhost', 8765)
 
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
+if __name__ == "__main__":
+
+    asyncio.get_event_loop().run_until_complete(start_server)
+    asyncio.get_event_loop().run_forever()
