@@ -19,6 +19,7 @@ RIGHT_EYE = [33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 
 
 class Process:
     def __init__(self) -> None:
+        self.flag = False
         self.b = 0.15
         self.c = 0.27
         self.counter = 4
