@@ -19,6 +19,7 @@ RIGHT_EYE = [33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 
 
 class Process:
     def __init__(self) -> None:
+        self.flag = False
         self.b = 0.15
         self.c = 0.27
         self.counter = 4
@@ -52,7 +53,6 @@ class Process:
 
             r = (self.pos(meshPoints[R_R], meshPoints[R_L], meshPoints[R_UP], meshPoints[R_DOWN],)
                     + self.pos(meshPoints[L_R], meshPoints[L_L], meshPoints[L_UP], meshPoints[L_DOWN],)) / 2
-            print(r)
             if r >= self.c:
                 self.flag = False
                 self.k = 0
