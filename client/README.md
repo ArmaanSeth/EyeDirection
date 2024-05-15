@@ -1,0 +1,1 @@
+# This folder is only for testing the websocket server and client using a basic HTML page.
