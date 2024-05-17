@@ -5,6 +5,12 @@ const websocket = new WebSocket(`ws://localhost:8000/ws/${client_id}`);
 websocket.onopen = () => {
   p.innerHTML = "Hurray!, You are connected to the world chat";
 };
+websocket.onmessage = (data) => {
+  p.innerHTML = "Cheater";
+  setTimeout(() => {
+    p.innerHTML = "Hurray!, You are connected to the world chat";
+  }, 500);
+};
 if (navigator.mediaDevices.getUserMedia) {
   navigator.mediaDevices
     .getUserMedia({ video: true })
