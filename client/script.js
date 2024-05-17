@@ -1,6 +1,7 @@
 const video = document.querySelector("video");
 const p = document.querySelector("p");
-const websocket = new WebSocket("ws://localhost:8765");
+const client_id = Math.floor(Math.random() * 1000000);
+const websocket = new WebSocket(`ws://localhost:8000/ws/${client_id}`);
 websocket.onopen = () => {
   p.innerHTML = "Hurray!, You are connected to the world chat";
 };

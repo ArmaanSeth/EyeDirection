@@ -21,6 +21,7 @@ class Process:
     def __init__(self) -> None:
         self.b = 0.15
         self.c = 0.27
+        self.flag = False                   
         self.counter = 4
         self.mpDraw = mp.solutions.drawing_utils
         self.mpFaceMesh = mp.solutions.face_mesh
