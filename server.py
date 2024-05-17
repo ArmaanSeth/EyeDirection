@@ -29,9 +29,11 @@
 from multiprocessing import process
 from urllib import response
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.responses import HTMLResponse
 import numpy as np
 import cv2
 from test import Process
+from fastapi.staticfiles import StaticFiles
 
 app=FastAPI()
 
@@ -56,6 +58,12 @@ class ConnectionManager:
         self.active_connections.remove(websocket)
 
 manager=ConnectionManager()
+
+@app.get("/")
+async def get():
+    app.mount("/", StaticFiles(directory="client", html=True), name="client")
+    return HTMLResponse(content=open("client/index.html").read(), status_code=200)
+
 
 @app.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: int):
