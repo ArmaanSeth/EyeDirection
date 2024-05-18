@@ -22,6 +22,7 @@ class Process:
         self.flag = False
         self.b = 0.15
         self.c = 0.27
+        self.flag = False                   
         self.counter = 4
         self.mpDraw = mp.solutions.drawing_utils
         self.mpFaceMesh = mp.solutions.face_mesh
