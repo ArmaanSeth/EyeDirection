@@ -80,13 +80,8 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
 
     except WebSocketDisconnect: 
         manager.disconnect(websocket)
-    # await websocket.accept()
-    # process=Process()
-    # while True:
-    #     data = await websocket.receive_bytes()
-    #     nparr = np.frombuffer(data, np.uint8)
-    #     img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    #     response=process.ProcessImage(img_np)
-    #     if response=="1":
-    #         print("=============================Cheater=============================")
-    #         await websocket.send(response)
+
+# write a get request to ping server and send response
+@app.get("/ping")
+async def ping():
+    return {"response": "pong"}
