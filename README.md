@@ -46,7 +46,7 @@ Technologies used in the project:
 
 <h2>🛡️ License:</h2>
 
-This project is licensed under the The ReadLogs Project is licensed under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use modify and distribute the software as per the terms of the license.
+This project is licensed under the The EyeDirection Project is licensed under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use modify and distribute the software as per the terms of the license.
 
 <h2>💖Like my work?</h2>
 Thank you for taking an interest! If you encounter any issues have suggestions or want to report a bug feel free to create an issue on the Repository. Happy Coding!
