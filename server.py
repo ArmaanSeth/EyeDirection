@@ -35,15 +35,16 @@ import cv2
 from test import Process
 from fastapi.staticfiles import StaticFiles
 
-app=FastAPI()
+app = FastAPI()
+
 
 class ConnectionManager:
     def __init__(self):
-        self.active_connections:list[WebSocket] = []
+        self.active_connections: list[WebSocket] = []
 
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
-        self.process=Process()
+        self.process = Process()
         self.active_connections.append(websocket)
 
     async def send_personal_message(self, message: str, websocket: WebSocket):
@@ -54,15 +55,17 @@ class ConnectionManager:
             await connection.send_text(message)
 
     def disconnect(self, websocket: WebSocket):
-        self.process=None
+        self.process = None
         self.active_connections.remove(websocket)
 
-manager=ConnectionManager()
 
-@app.get("/")
+manager = ConnectionManager()
+
+
+@app.get("/", status_code=200)
 async def get():
-    app.mount("/", StaticFiles(directory="client", html=True), name="client")
-    return HTMLResponse(content=open("client/index.html").read(), status_code=200)
+    # return success message and staus code
+    return {"status": "success", "message": "Server is running"}
 
 
 @app.websocket("/ws/{client_id}")
@@ -70,23 +73,21 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
     await manager.connect(websocket)
     try:
         while True:
-            data=await websocket.receive_bytes()
-            nparr=np.frombuffer(data, np.uint8)
-            img_np=cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-            response=manager.process.ProcessImage(img_np)
-            if response=="1":
-                print("=============================Cheater=============================")
+            data = await websocket.receive_bytes()
+            nparr = np.frombuffer(data, np.uint8)
+            img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            response = manager.process.ProcessImage(img_np)
+            if response == "1":
+                print(
+                    "=============================Cheater============================="
+                )
                 await manager.send_personal_message(f"{response}", websocket)
 
-    except WebSocketDisconnect: 
+    except WebSocketDisconnect:
         manager.disconnect(websocket)
-    # await websocket.accept()
-    # process=Process()
-    # while True:
-    #     data = await websocket.receive_bytes()
-    #     nparr = np.frombuffer(data, np.uint8)
-    #     img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    #     response=process.ProcessImage(img_np)
-    #     if response=="1":
-    #         print("=============================Cheater=============================")
-    #         await websocket.send(response)
+
+
+# write a get request to ping server and send response
+@app.get("/ping", status_code=200)
+async def ping():
+    return {"response": "pong"}
